@@ -147,8 +147,10 @@ class Input extends Component {
   };
 
   blur = () => {
-    this._onBlur();
-    this.input && this.input.blur();
+    if (document.activeElement === this.input) {
+      this._onBlur();
+      this.input && this.input.blur();
+    }
   };
 
   select = () => {
@@ -169,7 +171,9 @@ class Input extends Component {
 
   _onBlur = e => {
     this.setState({focus: false});
-    this.props.onBlur && this.props.onBlur(e);
+    if (this.props.onBlur) {
+      this.props.onBlur(e);
+    }
   };
 
   _onClick = e => {

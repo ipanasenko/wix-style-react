@@ -183,6 +183,13 @@ const runInputWithOptionsTest = driverFactory => {
       expect(onFocus).toBeCalled();
     });
 
+    it('should not call onBlur if clicked outside input and inner input is not focused', () => {
+      const onBlur = jest.fn();
+      const {driver} = createDriver(<InputWithOptions options={options} onBlur={onBlur}/>);
+      driver.outsideClick();
+      expect(onBlur).not.toBeCalled();
+    });
+
     it('should not call onManuallyInput when composing text via external means', () => {
       const onManualInput = jest.fn();
       const {driver, inputDriver} = createDriver(<InputWithOptions options={options} onManuallyInput={onManualInput}/>);
