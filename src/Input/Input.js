@@ -65,6 +65,7 @@ class Input extends Component {
 
     const onIconClicked = () => {
       if (!disabled) {
+        this.input.focus();
         this._onFocus();
       }
     };
@@ -147,10 +148,7 @@ class Input extends Component {
   };
 
   blur = () => {
-    if (document.activeElement === this.input) {
-      this._onBlur();
-      this.input && this.input.blur();
-    }
+    this.input && this.input.blur();
   };
 
   select = () => {

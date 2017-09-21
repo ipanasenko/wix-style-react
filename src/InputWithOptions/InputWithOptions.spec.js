@@ -183,11 +183,15 @@ const runInputWithOptionsTest = driverFactory => {
       expect(onFocus).toBeCalled();
     });
 
-    it('should not call onBlur if clicked outside input and inner input is not focused', () => {
+    it('should call onBlur if clicked outside and input is focused', () => {
       const onBlur = jest.fn();
-      const {driver} = createDriver(<InputWithOptions options={options} onBlur={onBlur}/>);
+      const {driver, inputDriver} = createDriver(<InputWithOptions options={options} onBlur={onBlur}/>);
       driver.outsideClick();
       expect(onBlur).not.toBeCalled();
+      driver.focus();
+      driver.outsideClick();
+      inputDriver.blur(); // apparently, jsdom does not fire onBlur after input.blur() is called
+      expect(onBlur).toBeCalled();
     });
 
     it('should not call onManuallyInput when composing text via external means', () => {
