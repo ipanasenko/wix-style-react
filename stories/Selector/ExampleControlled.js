@@ -13,12 +13,9 @@ class ControlledSelector extends Component {
     this.state = {
       id: 1,
       title: 'Title',
+      subtitle: 'Subtitle',
       selected: false
     };
-  }
-
-  setComponentState(name, value) {
-    this.setState(prevState => ({...prevState, ...{[name]: value}}));
   }
 
   render() {
@@ -32,7 +29,18 @@ class ControlledSelector extends Component {
                 <Input
                   size="small"
                   value={this.state.title}
-                  onChange={e => this.setComponentState('title', e.target.value)}
+                  onChange={e => this.setState({title: e.target.value})}
+                />
+              </div>
+            </div>
+
+            <div className={styles.option}>
+              <Label>Subtitle</Label>
+              <div className={styles.flex}>
+                <Input
+                  size="small"
+                  value={this.state.subtitle}
+                  onChange={e => this.setState({subtitle: e.target.value})}
                 />
               </div>
             </div>
@@ -42,8 +50,7 @@ class ControlledSelector extends Component {
         <Selector
           title={this.state.title}
           id={this.state.id}
-          key="1"
-          subTitle="SUBTITLE TEXT"
+          subTitle={this.state.subtitle}
           imageSrc="http://media.istockphoto.com/photos/orange-picture-id185284489?k=6&m=185284489&s=612x612&w=0&h=x_w4oMnanMTQ5KtSNjSNDdiVaSrlxM4om-3PQTIzFaY="
           imageSize="Cinema View"
           isSelected={this.state.selected}
