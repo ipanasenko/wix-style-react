@@ -22,14 +22,13 @@ class FooterStatus extends WixComponent {
     } = this.props;
 
     return (
-      <div>
-        <Checkbox
-          checked={checked}
-          indeterminate
-          onChange={() => onCheckBoxClick()}
-          />
-        {text}
-      </div>
+      <Checkbox
+        checked={checked}
+        indeterminate
+        onChange={() => onCheckBoxClick()}
+        >
+       {text}
+      </Checkbox> 
     );
   }
 }

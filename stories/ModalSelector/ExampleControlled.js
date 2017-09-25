@@ -91,6 +91,7 @@ class ControlledModalSelector extends Component {
           onOk={this.close}
           onCancel={this.close}
           onClose={this.close}
+          enableOk={this.state.footerChecked}
           modalHeight="540px"
           prefixContent={
             <ModalSelector.Search

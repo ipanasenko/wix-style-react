@@ -8,7 +8,8 @@ class Footer extends WixComponent {
   static propTypes = {
     buttonsHeight: PropTypes.string,
     onCancel: PropTypes.func,
-    onOk: PropTypes.func
+    onOk: PropTypes.func,
+    enableOk: PropTypes.bool
   }
 
   static defaultProps = {
@@ -20,7 +21,8 @@ class Footer extends WixComponent {
       onOk,
       onCancel,
       buttonsHeight,
-      children
+      children,
+      enableOk
     } = this.props;
     return (
       <div className={styles.footer}>
@@ -30,6 +32,7 @@ class Footer extends WixComponent {
           cancelText="Cancel"
           onCancel={onCancel}
           onOk={onOk}
+          enableOk={enableOk}
           >
           {children}
         </FooterLayout>

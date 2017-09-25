@@ -45,7 +45,8 @@ class ModalSelector extends WixComponent {
       loadMore,
       hasMore,
       footerStatus,
-      prefixContent
+      prefixContent,
+      enableOk
     } = this.props;
 
     return (
@@ -59,7 +60,7 @@ class ModalSelector extends WixComponent {
         >
         <MessageBoxFixedHeaderFooter
           prefixContent={prefixContent}
-          footer={<Footer onOk={onOk} onCancel={onCancel}>{footerStatus}</Footer>}
+          footer={<Footer onOk={onOk} onCancel={onCancel} enableOk={enableOk}>{footerStatus}</Footer>}
           header={<Header title="Choose Your Items" onCancel={onCancel} onClose={onClose}/>}
           >
           <InfiniteScroll
