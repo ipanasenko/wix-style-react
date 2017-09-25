@@ -33,6 +33,16 @@ describe('FieldWithSelectionComposite', () => {
     expect(driver.hasSelectionInput()).toBe(true);
   });
 
+  describe('input properties', () => {
+    it('should verify that onBlur callback was called', () => {
+      const driver = createCompositeDriverFactory(<FieldWithSelectionComposite><Label/><Input/><Checkbox/></FieldWithSelectionComposite>);
+      const input = driver.getInput();
+      spyOn(input, 'blur');
+      input.blur();
+      expect(driver.getInput().blur).toHaveBeenCalled();
+    });
+  });
+
   describe('label attributes', () => {
     it('should FieldLabelAttributes not exists if all attributes empty or false', () => {
       const driver = createCompositeDriverFactory(<FieldWithSelectionComposite><Label/><InputArea/><Checkbox/></FieldWithSelectionComposite>);

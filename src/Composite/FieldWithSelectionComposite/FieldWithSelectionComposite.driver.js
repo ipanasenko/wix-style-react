@@ -13,6 +13,7 @@ const fieldWithSelectionCompositeDriverFactory = ({element, wrapper}) => {
     getLabel: () => label && label.textContent,
     hasLabel: () => !!label,
     hasInput: () => !!textInput,
+    getInput: () => textInput,
     hasSelectionInput: () => !!selectionInput.tagName,
     getAttr: attrName => element.getAttribute(attrName),
     getNumberOfChildren: () => element.childElementCount,
