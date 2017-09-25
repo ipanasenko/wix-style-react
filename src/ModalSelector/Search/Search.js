@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import debounce from 'lodash/debounce';
 import React from 'react';
 import PropTypes from 'prop-types';
 import WixComponent from '../../BaseComponents/WixComponent';
@@ -18,10 +18,10 @@ class Search extends WixComponent {
     minimumChars: 1,
   };
 
-  fireChange = _.debounce(value => this.props.onChange(value), this.props.delayTime);
+  fireChange = debounce(value => this.props.onChange(value), this.props.delayTime);
 
   onChange = e => {
-    const {onChange, delayTime, minimumChars} = this.props;
+    const {minimumChars} = this.props;
     const value = e.target.value;
     const charsLength = value.length;
 

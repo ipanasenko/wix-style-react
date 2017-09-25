@@ -9,29 +9,31 @@ const optionsList = [
     selected: false,
     title: 'Lake Briashire',
     subtitle: '04 May 2017',
-    extraText: '22% Off'
+    extraText: '22% Off',
+    imageSrc: 'http://media.istockphoto.com/photos/orange-picture-id185284489?k=6&m=185284489&s=612x612&w=0&h=x_w4oMnanMTQ5KtSNjSNDdiVaSrlxM4om-3PQTIzFaY='
   },
   {
     selected: false,
     title: 'Tristinchester',
     subtitle: '25 Dec 2017',
-    extraText: '12% Off'
+    extraText: '12% Off',
+    imageSrc: 'http://media.istockphoto.com/photos/orange-picture-id185284489?k=6&m=185284489&s=612x612&w=0&h=x_w4oMnanMTQ5KtSNjSNDdiVaSrlxM4om-3PQTIzFaY='
   },
   {
     selected: false,
     title: 'South Phoebe',
     subtitle: '02 Aug 2017',
-    extraText: '18% Off'
+    extraText: '18% Off',
+    imageSrc: 'http://media.istockphoto.com/photos/orange-picture-id185284489?k=6&m=185284489&s=612x612&w=0&h=x_w4oMnanMTQ5KtSNjSNDdiVaSrlxM4om-3PQTIzFaY='
   },
   {
     selected: false,
     title: 'South Adaborough',
     subtitle: '08 Aug 2017',
-    extraText: '75% Off'
+    extraText: '75% Off',
+    imageSrc: 'http://media.istockphoto.com/photos/orange-picture-id185284489?k=6&m=185284489&s=612x612&w=0&h=x_w4oMnanMTQ5KtSNjSNDdiVaSrlxM4om-3PQTIzFaY='
   },
 ];
-
-let filteredList = optionsList;
 
 class ControlledModalSelector extends Component {
   static propTypes = {
@@ -53,19 +55,21 @@ class ControlledModalSelector extends Component {
   open = this.generateSetState({isOpen: true});
 
   toggleSelector = id => {
-    const newToggleState = !this.state.optionsList[id].selected;
-    this.state.optionsList[id].selected = newToggleState;
+    const optionsList = this.state.optionsList;
+    const newToggleState = !optionsList[id].selected;
 
+    optionsList[id].selected = newToggleState;
+
+    this.setState({optionsList});
     this.setFooterText();
   }
 
   setFooterText = () => {
     const numOfSelected = optionsList.filter(x => x.selected).length;
     this.setState({
-      footerText:
-        numOfSelected ?
-          `Deselect (${numOfSelected})` :
-          `Select All (${optionsList.length})`,
+      footerText: numOfSelected ?
+        `Deselect (${numOfSelected})` :
+        `Select All (${optionsList.length})`,
       footerChecked: !!numOfSelected
     });
   }
@@ -92,6 +96,18 @@ class ControlledModalSelector extends Component {
   }
 
   render() {
+    const searchInput = (<ModalSelector.Search
+      onChange={text => this.search(text)}
+      minimumChars={1}
+      delayTime={300}
+      />);
+
+    const footerStatus = (<ModalSelector.FooterStatus
+      checked={this.state.footerChecked}
+      text={this.state.footerText}
+      onCheckBoxClick={() => this.toggleFooterStatus()}
+      />);
+
     return (
       <div>
         <Button onClick={this.open}>Open Modal Selector</Button>
@@ -102,27 +118,15 @@ class ControlledModalSelector extends Component {
           onClose={this.close}
           enableOk={this.state.footerChecked}
           modalHeight="540px"
-          prefixContent={
-            <ModalSelector.Search
-              onChange={text => this.search(text)}
-              minimumChars={1}
-              delayTime={300}
-              />
-          }
-          footerStatus={
-            <ModalSelector.FooterStatus 
-              checked={this.state.footerChecked} 
-              text={this.state.footerText} 
-              onCheckBoxClick={() => this.toggleFooterStatus()}
-              />
-          }
+          prefixContent={searchInput}
+          footerStatus={footerStatus}
           >
           {this.state.optionsList.map((x, i) => <Selector
             id={i}
             key={i}
             title={x.title}
             subTitle={x.subtitle}
-            imageSrc="http://media.istockphoto.com/photos/orange-picture-id185284489?k=6&m=185284489&s=612x612&w=0&h=x_w4oMnanMTQ5KtSNjSNDdiVaSrlxM4om-3PQTIzFaY="
+            imageSrc={x.imageSrc}
             imageSize="Large Square"
             onToggle={id => this.toggleSelector(id)}
             isSelected={x.selected}

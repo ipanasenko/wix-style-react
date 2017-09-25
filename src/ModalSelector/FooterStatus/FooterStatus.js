@@ -27,8 +27,8 @@ class FooterStatus extends WixComponent {
         indeterminate
         onChange={() => onCheckBoxClick()}
         >
-       {text}
-      </Checkbox> 
+        {text}
+      </Checkbox>
     );
   }
 }

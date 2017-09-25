@@ -36,7 +36,7 @@ class Footer extends WixComponent {
           >
           {children}
         </FooterLayout>
-      </div>  
+      </div>
     );
   }
 }

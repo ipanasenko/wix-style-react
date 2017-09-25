@@ -63,8 +63,7 @@ class ControlledSelector extends Component {
                         selectedId={this.state.imageSize}
                         options={Image.types.map((type, index) => ({id: index, value: type}))}
                         onSelect={({id}) => this.setState({imageSize: id})}
-                        >
-                      </Dropdown>
+                        />
                     </Col>
                   </Row>
                   <Row>
@@ -79,7 +78,7 @@ class ControlledSelector extends Component {
                       </RadioGroup>
                     </Col>
                   </Row>
-                </Card.Content>  
+                </Card.Content>
               </Card>
             </Col>
             <Col span={5}>
@@ -99,7 +98,7 @@ class ControlledSelector extends Component {
                     {this.state.extra === 'icon' ? <Selector.ExtraIcon name="Add"/> : ''}
                     {this.state.extra === 'progress' ? <Selector.ProgressBar progress={83}/> : ''}
                   </Selector>
-                </Card.Content>  
+                </Card.Content>
               </Card>
             </Col>
           </Row>
