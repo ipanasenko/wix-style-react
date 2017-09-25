@@ -40,7 +40,7 @@ describe('Selector', () => {
     it('should exist', () => {
       const div = document.createElement('div');
       const dataHook = 'myDataHook';
-      const wrapper = div.appendChild(ReactTestUtils.renderIntoDocument(<div><Selector {...defaultProps} dataHook={dataHook} /></div>));
+      const wrapper = div.appendChild(ReactTestUtils.renderIntoDocument(<div><Selector {...defaultProps} dataHook={dataHook}/></div>));
       const checkboxTestkit = selectorTestkitFactory({wrapper, dataHook});
       expect(checkboxTestkit.exists()).toBeTruthy();
     });

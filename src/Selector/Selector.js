@@ -6,7 +6,7 @@ import Image from './Image';
 import Text from '../Text';
 import styles from './Selector.scss';
 import ExtraText from './ExtraText';
-// import ExtraIcon from './ExtraIcon';
+import ExtraIcon from './ExtraIcon';
 import ProgressBar from './ProgressBar';
 
 const checkBoxStyle = {
@@ -74,7 +74,7 @@ class Selector extends WixComponent {
 }
 
 Selector.ExtraText = ExtraText;
-// Selector.ExtraIcon = ExtraIcon;
+Selector.ExtraIcon = ExtraIcon;
 Selector.ProgressBar = ProgressBar;
 
 export default Selector;

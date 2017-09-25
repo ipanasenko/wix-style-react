@@ -10,8 +10,8 @@ class ExtraIcon extends WixComponent {
 
   render() {
     return (
-      <div key={name}>
-        <span>{React.createElement(Icons[name])}</span>
+      <div key={this.props.name}>
+        <span>{React.createElement(Icons[this.props.name])}</span>
       </div>
     );
   }
