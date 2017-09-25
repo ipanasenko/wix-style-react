@@ -49,7 +49,7 @@ class Selector extends WixComponent {
       subTitle,
       isSelected,
       id,
-      children,
+      children
     } = this.props;
 
     return (

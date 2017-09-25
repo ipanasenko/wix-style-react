@@ -12,10 +12,12 @@ const sizeMap = {
   'Cinema View': 'cinema'
 };
 
+const types = ['Tiny Square', 'Small Square', 'Portrait', 'Large Square', 'Cinema View'];
+
 class Image extends WixComponent {
   static propTypes = {
     imageSrc: PropTypes.string.isRequired,
-    imageSize: PropTypes.oneOf(['Tiny Square', 'Small Square', 'Portrait', 'Large Square', 'Cinema View']),
+    imageSize: PropTypes.oneOf(types),
   };
 
   static defaultProps = {
@@ -39,5 +41,7 @@ class Image extends WixComponent {
     );
   }
 }
+
+Image.types = types;
 
 export default Image;
