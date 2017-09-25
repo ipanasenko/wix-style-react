@@ -31,6 +31,8 @@ const optionsList = [
   },
 ];
 
+let filteredList = optionsList;
+
 class ControlledModalSelector extends Component {
   static propTypes = {
     isOpen: PropTypes.bool
@@ -40,7 +42,8 @@ class ControlledModalSelector extends Component {
     super();
     this.state = {
       isOpen,
-      footerChecked: false
+      footerChecked: false,
+      optionsList
     };
   }
 
@@ -49,12 +52,12 @@ class ControlledModalSelector extends Component {
   close = this.generateSetState({isOpen: false});
   open = this.generateSetState({isOpen: true});
 
-  selectorToggle = id => {
-    const newToggleState = !optionsList[id].selected;
-    optionsList[id].selected = newToggleState;
+  toggleSelector = id => {
+    const newToggleState = !this.state.optionsList[id].selected;
+    this.state.optionsList[id].selected = newToggleState;
 
     this.setFooterText();
-  };
+  }
 
   setFooterText = () => {
     const numOfSelected = optionsList.filter(x => x.selected).length;
@@ -62,21 +65,27 @@ class ControlledModalSelector extends Component {
       footerText:
         numOfSelected ?
           `Deselect (${numOfSelected})` :
-          `Select All(${optionsList.length})`,
+          `Select All (${optionsList.length})`,
       footerChecked: !!numOfSelected
     });
   }
 
   toggleFooterStatus = () => {
     const numOfSelected = optionsList.filter(x => x.selected).length;
-    if (numOfSelected) {
-      optionsList.forEach(x => x.selected = false);
-    } else {
-      optionsList.forEach(x => x.selected = true);
-    }
+
+    optionsList.forEach(x => x.selected = !numOfSelected);
 
     this.setFooterText();
-  };
+  }
+
+  search(text) {
+    if (!text) {
+      this.setState({optionsList});
+    } else {
+      const filtered = optionsList.filter(({title}) => title.toLowerCase().indexOf(text.toLowerCase()) !== -1);
+      this.setState({optionsList: filtered});
+    }
+  }
 
   componentWillMount() {
     this.setFooterText();
@@ -85,7 +94,7 @@ class ControlledModalSelector extends Component {
   render() {
     return (
       <div>
-        <Button onClick={this.open} >Open Modal Selector</Button>
+        <Button onClick={this.open}>Open Modal Selector</Button>
         <ModalSelector
           isOpen={this.state.isOpen}
           onOk={this.close}
@@ -95,25 +104,31 @@ class ControlledModalSelector extends Component {
           modalHeight="540px"
           prefixContent={
             <ModalSelector.Search
-              onChange={() => {}}
-              minimumChars={2}
-              delayTime={1000}
+              onChange={text => this.search(text)}
+              minimumChars={1}
+              delayTime={300}
               />
           }
-          footerStatus={<ModalSelector.FooterStatus checked={this.state.footerChecked} text={this.state.footerText} onCheckBoxClick={this.toggleFooterStatus}/>}
+          footerStatus={
+            <ModalSelector.FooterStatus 
+              checked={this.state.footerChecked} 
+              text={this.state.footerText} 
+              onCheckBoxClick={() => this.toggleFooterStatus()}
+              />
+          }
           >
-          {optionsList.map((x, i) => <Selector
+          {this.state.optionsList.map((x, i) => <Selector
             id={i}
             key={i}
             title={x.title}
             subTitle={x.subtitle}
             imageSrc="http://media.istockphoto.com/photos/orange-picture-id185284489?k=6&m=185284489&s=612x612&w=0&h=x_w4oMnanMTQ5KtSNjSNDdiVaSrlxM4om-3PQTIzFaY="
             imageSize="Large Square"
-            onToggle={this.selectorToggle}
+            onToggle={id => this.toggleSelector(id)}
             isSelected={x.selected}
             >
             <Selector.ExtraText text={x.extraText}/>
-            {/* <Selector.ExtraIcon name="add"/> */}
+            {/* <Selector.ExtraIcon name="Add"/> */}
             {/*<Selector.ProgressBar progress={83}/>*/}
           </Selector>)}
         </ModalSelector>

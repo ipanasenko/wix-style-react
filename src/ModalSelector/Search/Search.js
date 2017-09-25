@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 import WixComponent from '../../BaseComponents/WixComponent';
@@ -17,12 +18,15 @@ class Search extends WixComponent {
     minimumChars: 1,
   };
 
+  fireChange = _.debounce(value => this.props.onChange(value), this.props.delayTime);
+
   onChange = e => {
     const {onChange, delayTime, minimumChars} = this.props;
-    const charsLength = e.target.value.length;
     const value = e.target.value;
-    if (charsLength > minimumChars) {
-      setTimeout(() => onChange(value), delayTime);
+    const charsLength = value.length;
+
+    if (!charsLength || charsLength > minimumChars) {
+      this.fireChange(value);
     }
   }
 
