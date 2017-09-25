@@ -22,9 +22,7 @@ class FooterStatus extends WixComponent {
     } = this.props;
 
     return (
-      <div
-        style={{paddingLeft: '32px'}}
-        >
+      <div>
         <Checkbox
           checked={checked}
           indeterminate

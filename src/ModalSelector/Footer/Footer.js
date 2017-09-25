@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import WixComponent from '../../BaseComponents/WixComponent';
 import FooterLayout from '../../MessageBox/FooterLayout';
+import styles from './Footer.scss';
 
 class Footer extends WixComponent {
   static propTypes = {
@@ -22,15 +23,17 @@ class Footer extends WixComponent {
       children
     } = this.props;
     return (
-      <FooterLayout
-        buttonsHeight={buttonsHeight}
-        confirmText="OK"
-        cancelText="Cancel"
-        onCancel={onCancel}
-        onOk={onOk}
-        >
-        {children}
-      </FooterLayout>
+      <div className={styles.footer}>
+        <FooterLayout
+          buttonsHeight={buttonsHeight}
+          confirmText="Select"
+          cancelText="Cancel"
+          onCancel={onCancel}
+          onOk={onOk}
+          >
+          {children}
+        </FooterLayout>
+      </div>  
     );
   }
 }
