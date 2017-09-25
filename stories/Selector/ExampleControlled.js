@@ -3,6 +3,7 @@ import Selector from '../../src/Selector';
 import {Container, Row, Col, Card} from '../../src/Grid';
 import TextField from '../../src/TextField';
 import Label from '../../src/Label';
+import Dropdown from '../../src/Dropdown';
 import Input from '../../src/Input';
 import RadioGroup from '../../src/RadioGroup';
 import Image from '../../src/Selector/Image';
@@ -20,7 +21,7 @@ class ControlledSelector extends Component {
       title: 'Title',
       subtitle: 'Subtitle',
       selected: false,
-      imageSize: Image.types[0],
+      imageSize: 3,
       extra: ''
     };
   }
@@ -30,7 +31,7 @@ class ControlledSelector extends Component {
       <form className={styles.container}>
         <Container>
           <Row>
-            <Col span={8}>
+            <Col span={7}>
               <Card>
                 <Card.Header title="Controls"/>
                 <Card.Content>
@@ -55,17 +56,15 @@ class ControlledSelector extends Component {
                           />
                       </TextField>
                     </Col>
-                  </Row>
-                  <Row>
-                    <Col span={12}>
-                      <div className={styles.label}><Label>Image size</Label></div>
-                      <RadioGroup
-                        value={this.state.imageSize}
-                        display="horizontal"
-                        onChange={imageSize => this.setState({imageSize})}
+                    <Col span={3}>
+                      <div className={styles.label}><Label>Image</Label></div>
+                      <Dropdown
+                        size="small"
+                        selectedId={this.state.imageSize}
+                        options={Image.types.map((type, index) => ({id: index, value: type}))}
+                        onSelect={({id}) => this.setState({imageSize: id})}
                         >
-                        {Image.types.map((type, index) => <RadioGroup.Radio key={index} value={type}>{type}</RadioGroup.Radio>)}
-                      </RadioGroup>
+                      </Dropdown>
                     </Col>
                   </Row>
                   <Row>
@@ -83,7 +82,7 @@ class ControlledSelector extends Component {
                 </Card.Content>  
               </Card>
             </Col>
-            <Col span={4}>
+            <Col span={5}>
               <Card>
                 <Card.Header title="Preview"/>
                 <Card.Content>
@@ -92,7 +91,7 @@ class ControlledSelector extends Component {
                     id={this.state.id}
                     subTitle={this.state.subtitle}
                     imageSrc="http://media.istockphoto.com/photos/orange-picture-id185284489?k=6&m=185284489&s=612x612&w=0&h=x_w4oMnanMTQ5KtSNjSNDdiVaSrlxM4om-3PQTIzFaY="
-                    imageSize={this.state.imageSize}
+                    imageSize={Image.types[this.state.imageSize]}
                     isSelected={this.state.selected}
                     onToggle={this.selectorToggle}
                     >
