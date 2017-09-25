@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Selector from '../../src/Selector';
 import {Container, Row, Col, Card} from '../../src/Grid';
 import TextField from '../../src/TextField';
+import Checkbox from '../../src/Checkbox';
 import Label from '../../src/Label';
 import Dropdown from '../../src/Dropdown';
 import Input from '../../src/Input';
@@ -9,7 +10,7 @@ import RadioGroup from '../../src/RadioGroup';
 import Image from '../../src/Selector/Image';
 import * as styles from './ExampleStandard.scss';
 
-const extraTypes = ['text', 'icon', 'progress'];
+const extraTypes = ['none', 'text', 'icon', 'progress'];
 
 class ControlledSelector extends Component {
 
@@ -19,10 +20,13 @@ class ControlledSelector extends Component {
     this.state = {
       id: 1,
       title: 'Title',
+      hasSubtitle: true,
       subtitle: 'Subtitle',
       selected: false,
+      hasImage: true,
+      imageSrc: 'http://media.istockphoto.com/photos/orange-picture-id185284489?k=6&m=185284489&s=612x612&w=0&h=x_w4oMnanMTQ5KtSNjSNDdiVaSrlxM4om-3PQTIzFaY=',
       imageSize: 3,
-      extra: ''
+      extra: extraTypes[0]
     };
   }
 
@@ -47,21 +51,29 @@ class ControlledSelector extends Component {
                       </TextField>
                     </Col>
                     <Col span={3}>
-                      <TextField>
-                        <Label>Subtitle</Label>
-                        <Input
-                          size="small"
-                          value={this.state.subtitle}
-                          onChange={e => this.setState({subtitle: e.target.value})}
-                          />
-                      </TextField>
+                      <div className={styles.label}>
+                        <Checkbox checked={this.state.hasSubtitle} onChange={() => this.setState({hasSubtitle: !this.state.hasSubtitle})}>
+                          Subtitle
+                        </Checkbox>
+                      </div>
+                      <Input
+                        size="small"
+                        value={this.state.subtitle}
+                        disabled={!this.state.hasSubtitle}
+                        onChange={e => this.setState({subtitle: e.target.value})}
+                        />
                     </Col>
                     <Col span={3}>
-                      <div className={styles.label}><Label>Image</Label></div>
+                      <div className={styles.label}>
+                        <Checkbox checked={this.state.hasImage} onChange={() => this.setState({hasImage: !this.state.hasImage})}>
+                          Image
+                        </Checkbox>
+                      </div>
                       <Dropdown
                         size="small"
                         selectedId={this.state.imageSize}
                         options={Image.types.map((type, index) => ({id: index, value: type}))}
+                        disabled={!this.state.hasImage}
                         onSelect={({id}) => this.setState({imageSize: id})}
                         />
                     </Col>
@@ -88,8 +100,8 @@ class ControlledSelector extends Component {
                   <Selector
                     title={this.state.title}
                     id={this.state.id}
-                    subTitle={this.state.subtitle}
-                    imageSrc="http://media.istockphoto.com/photos/orange-picture-id185284489?k=6&m=185284489&s=612x612&w=0&h=x_w4oMnanMTQ5KtSNjSNDdiVaSrlxM4om-3PQTIzFaY="
+                    subTitle={this.state.hasSubtitle ? this.state.subtitle : ''}
+                    imageSrc={this.state.hasImage ? this.state.imageSrc : ''}
                     imageSize={Image.types[this.state.imageSize]}
                     isSelected={this.state.selected}
                     onToggle={this.selectorToggle}
