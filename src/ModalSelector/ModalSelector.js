@@ -12,41 +12,36 @@ import Search from './Search';
 class ModalSelector extends WixComponent {
   static propTypes = {
     isOpen: PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired,
-    onOk: PropTypes.func.isRequired,
-    onCancel: PropTypes.func.isRequired,
-    loadMore: PropTypes.func.isRequired,
+    onClose: PropTypes.func,
+    onOk: PropTypes.func,
+    onCancel: PropTypes.func,
+    loadMore: PropTypes.func,
     hasMore: PropTypes.bool,
-    isSearchEnabled: PropTypes.bool,
-    modalHeight: PropTypes.string,
-    onCheckBoxFooterClick: PropTypes.func,
-    footerText: PropTypes.string,
-    footerChecked: PropTypes.bool,
+    enableOk: PropTypes.bool,
+    height: PropTypes.string,
     prefixContent: PropTypes.node,
+    footerStatus: PropTypes.node,
   }
 
   static defaultProps = {
-    isOpen: false,
-    onOk: () => {},
-    onClose: () => {},
-    onCancel: () => {},
     loadMore: () => {},
     hasMore: false,
+    height: '540px'
   }
 
   render() {
     const {
       isOpen,
-      modalHeight,
+      height,
       onOk,
       onClose,
       onCancel,
-      children,
       loadMore,
       hasMore,
+      enableOk,
       footerStatus,
       prefixContent,
-      enableOk
+      children
     } = this.props;
 
     return (
@@ -56,7 +51,7 @@ class ModalSelector extends WixComponent {
         contentLabel="Items Selection Modal"
         scrollableContent={false}
         scrollable={false}
-        height={modalHeight}
+        height={height}
         >
         <MessageBoxFixedHeaderFooter
           prefixContent={prefixContent}

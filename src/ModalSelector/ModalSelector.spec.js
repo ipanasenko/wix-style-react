@@ -7,7 +7,7 @@ import {isTestkitExists, isEnzymeTestkitExists} from '../../testkit/test-common'
 import {modalSelectorTestkitFactory} from '../../testkit';
 import {modalSelectorTestkitFactory as enzymeModalSelectorTestkitFactory} from '../../testkit/enzyme';
 
-describe('ModalSelector', () => {
+fdescribe('ModalSelector', () => {
   const createDriver = createDriverFactory(ModalSelectorFactory);
 
   let props = {};
@@ -20,7 +20,6 @@ describe('ModalSelector', () => {
   });
 
   describe('content', () => {
-
     it(`should not render the modal content if not open by default`, () => {
       props.isOpen = false;
 
@@ -38,11 +37,25 @@ describe('ModalSelector', () => {
       expect(driver.getChildBySelector('[data-hook="inner-div"]')).not.toBeNull();
     });
 
+    it(`should render the content prefix`, () => {
+      props.isOpen = true;
+      props.prefixContent = (<div data-hook="prefix-content-test"/>);
+
+      const driver = createDriver(<ModalSelector {...props}/>);
+      expect(driver.getChildBySelector('[data-hook="prefix-content-test"]')).not.toBeNull();
+    });
+
+    it(`should render the footer status`, () => {
+      props.isOpen = true;
+      props.footerStatus = (<div data-hook="footer-status-test"/>);
+
+      const driver = createDriver(<ModalSelector {...props}/>);
+      expect(driver.getChildBySelector('[data-hook="footer-status-test"]')).not.toBeNull();
+    });
   });
 
   describe('callbacks', () => {
     it(`should trigger the onClose function when clicking the close button`, () => {
-
       props.onClose = sinon.spy();
 
       const driver = createDriver(<ModalSelector {...props}/>);
@@ -52,7 +65,6 @@ describe('ModalSelector', () => {
     });
 
     it(`should trigger the onOk function when clicking the ok button`, () => {
-
       props.onOk = sinon.spy();
 
       const driver = createDriver(<ModalSelector {...props}/>);
@@ -62,7 +74,15 @@ describe('ModalSelector', () => {
     });
 
     it(`should trigger the onCancel function when clicking the cancel button`, () => {
+      props.onCancel = sinon.spy();
 
+      const driver = createDriver(<ModalSelector {...props}/>);
+      driver.clickOnCancel();
+
+      expect(props.onCancel.calledOnce).toBeTruthy();
+    });
+
+    it(`should trigger the onCancel function when clicking the cancel button`, () => {
       props.onCancel = sinon.spy();
 
       const driver = createDriver(<ModalSelector {...props}/>);
@@ -83,6 +103,4 @@ describe('ModalSelector', () => {
       expect(isEnzymeTestkitExists(<ModalSelector {...props}/>, enzymeModalSelectorTestkitFactory)).toBe(true);
     });
   });
-
-
 });

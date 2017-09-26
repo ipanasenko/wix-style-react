@@ -12,11 +12,8 @@ const modalSelectorDriverFactory = (/*{element, wrapper, component}*/) => {
 
   return {
     exists: () => !!(getPortal()),
-    // element: () => element,
     isOpen: () => !!(getContent()),
-    // isThemeExist: theme => !!getPortal().querySelector(`.${theme}`),
     getChildBySelector: selector => getPortal().querySelector(selector),
-    // isScrollable: () => !getPortal().classList.contains('portalNonScrollable'),
     clickOnClose: () => {
       ReactTestUtils.Simulate.click(getCloseButton());
     },
@@ -25,11 +22,7 @@ const modalSelectorDriverFactory = (/*{element, wrapper, component}*/) => {
     },
     clickOnCancel: () => {
       ReactTestUtils.Simulate.click(getCancelButton());
-    },
-    // setProps: props => {
-    //   const ClonedWithProps = React.cloneElement(component, Object.assign({}, component.props, props), ...(component.props.children || []));
-    //   ReactDOM.render(<div ref={r => element = r}>{ClonedWithProps}</div>, wrapper);
-    // }
+    }
   };
 };
 
