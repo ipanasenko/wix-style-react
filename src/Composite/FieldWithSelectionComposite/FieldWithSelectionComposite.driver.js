@@ -2,6 +2,7 @@ import React from 'react';
 import FieldWithSelectionComposite from './FieldWithSelectionComposite';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
+import ReactTestUtils from 'react-dom/test-utils';
 
 const fieldWithSelectionCompositeDriverFactory = ({element, wrapper}) => {
   const label = element.querySelector('.label>label');
@@ -14,6 +15,7 @@ const fieldWithSelectionCompositeDriverFactory = ({element, wrapper}) => {
     hasLabel: () => !!label,
     hasInput: () => !!textInput,
     getInput: () => textInput,
+    triggerInputBlur: () => ReactTestUtils.Simulate['blur'](textInput),
     hasSelectionInput: () => !!selectionInput.tagName,
     getAttr: attrName => element.getAttribute(attrName),
     getNumberOfChildren: () => element.childElementCount,
