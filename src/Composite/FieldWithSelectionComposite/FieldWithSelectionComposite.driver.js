@@ -15,7 +15,7 @@ const fieldWithSelectionCompositeDriverFactory = ({element, wrapper}) => {
     hasLabel: () => !!label,
     hasInput: () => !!textInput,
     getInput: () => textInput,
-    triggerInputBlur: () => ReactTestUtils.Simulate['blur'](textInput),
+    triggerInputBlur: () => ReactTestUtils.Simulate.blur(textInput),
     hasSelectionInput: () => !!selectionInput.tagName,
     getAttr: attrName => element.getAttribute(attrName),
     getNumberOfChildren: () => element.childElementCount,

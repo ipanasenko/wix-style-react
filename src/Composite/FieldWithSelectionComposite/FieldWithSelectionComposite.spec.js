@@ -35,7 +35,7 @@ describe('FieldWithSelectionComposite', () => {
 
   describe('input properties', () => {
     it('should verify that onBlur callback was called', () => {
-      const onBlur =  jest.fn();
+      const onBlur = jest.fn();
       const driver = createCompositeDriverFactory(<FieldWithSelectionComposite><Label/><Input onBlur={onBlur}/><Checkbox/></FieldWithSelectionComposite>);
       driver.triggerInputBlur();
       expect(onBlur).toHaveBeenCalled();
